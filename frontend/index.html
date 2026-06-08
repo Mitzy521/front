@@ -1,0 +1,41 @@
+<!DOCTYPEDOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+</head>
+<body>
+    <h1>Calculadora FASTAPI</h1>
+    <label>Número 1:</label>
+    <input id="a" type="number"><br><br>
+
+    <label>Número 2:</label>
+    <input id="b" type="number"><br><br>
+
+    <label>Operación:</label>
+    <select id="operacion">
+        <option value="sumar">Suma</option>
+        <option value="restar">Resta</option>
+    </select>
+
+    <br><br>
+    <button onclick="calcular()">Calcular</button>
+
+    <h2>Resultado: <span id="resultado"></span></h2>
+
+    <script>
+        function calcular() {
+            const a = document.getElementById('a').value;
+            const b = document.getElementById('b').value;
+            const op = document.getElementById('operacion').value;
+            const url = `http://localhost:8001/${op}?a=${a}&b=${b}`;
+
+            fetch(url)
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    document.getElementById('resultado').innerText = data.resultado;
+                })
+        }
+    </script>
+</body>
+</html>
